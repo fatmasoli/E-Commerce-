@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <title>Products</title>
+
+
+
+  <style>
+    .shopping {
+      transform: translateX(-16px);
+      position: relative;
+    }
+
+    .shopping span {
+      background: rgb(220, 212, 7);
+      border-radius: 60%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      position: absolute;
+      top: -5px;
+      left: 80%;
+      padding: 0px 8px;
+    }
+
+    .icon-cross {
+      /* background-color: aqua; */
+      color: #aa1818;
+      cursor: pointer;
+      /*  */
+      filter: drop-shadow(2px 4px 6px black);
+    }
+
+    .shop-item {
+      cursor: default;
+      text-decoration: none !important;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      width: 250px;
+      display: inline-block;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .shop-item:hover {
+      transform: scale(1.05);
+    }
+
+    .shop-item .product-thumbnail {
+      max-width: 100%;
+      height: 15rem;
+      margin-bottom: 10px;
+      border-radius: 5px;
+
+    }
+
+    .wishlist-icon {
+      cursor: pointer;
+      transition: all ease-in-out 1s;
+      filter: brightness(0.5);
+    }
+
+    .wishList .quantity {
+      font-weight: bold;
+      
+      color: red;
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <!-- nav bar -->
+  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+    <div class="container">
+      <a class="navbar-brand" href="index.html">ProjectJs<span>.</span></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+        aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsFurni">
+        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link text-black" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-black" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-black" href="product.html">product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-black" href="contactUs.html">contactUs</a>
+          </li>
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li>
+              <div class="wishList"><a class="nav-link" href="wishlist.html"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                  </svg>
+                  <span class="quantity" aria-readonly="true">0</span>
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="shopping">
+                <a class="nav-link" href="cart.html"><img src="../images/cart.svg"></a>
+                <span class="quantity" aria-readonly="true">0</span>
+              </div>
+            </li>
+          </ul>
+          <!-- <li class="nav-item">
+            <a class="nav-link text-black" href="wishlist.html"> WishList </a>
+          </li> -->
+
+
+          <li class="nav-item">
+            <a class="nav-link text-black" href="#" onclick="logOut()">log out</a>
+
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- end nav bar -->
+
+
+
+
+
+  <!-- search -->
+
+  <div class="d-flex">
+    <!-- <input onkeyup="searchProduct()" id="searchValue" type="text" placeholder="search By Name"
+    class="form-control my-5 w-25 mx-auto"> -->
+
+    <input onkeyup="searchProduct()" id="searchValue" type="text" placeholder="Search By Name"
+      class="form-control my-5 w-25 mx-auto">
+
+    <input onkeyup="searchByCategory()" id="searchCategory" type="text" placeholder="search By Category"
+      class="form-control my-5 w-25 mx-auto">
+  </div>
+
+
+  <!-- --------------------------------Add New Product ------------------------------------->
+  <div class="untree_co-section product-section before-footer-section">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-3">
+          <div class="shop-item" data-product-id="1">
+            <img src="../images/product-1.png" alt="Product 1">
+            <h3>Product 1</h3>
+            <p>Description of Product 1.</p>
+            <span class="wishlist-icon" style="width:fit-content" onclick="addToWishList(1)">🤎</span>
+            <span class="icon-cross text-black">
+              <img src="../images/cross.svg" class="img-fluid">
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="shop-item" data-product-id="2">
+            <img src="../images/product-2.png" alt="Product 2">
+            <h3>Product 2</h3>
+            <p>Description of Product 2.</p>
+            <span class="wishlist-icon" onclick="addToWishList(2)">🤎</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="shop-item" data-product-id="3">
+            <img src="../images/product-3.png" alt="Product 3">
+            <h3>Product 3</h3>
+            <p>Description of Product 3.</p>
+            <span class="wishlist-icon" onclick="addToWishList(3)">🤎</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="shop-item" data-product-id="4">
+            <img src="../images/product-4.png" alt="Product 4">
+            <h3>Product 3</h3>
+            <p>Description of Product 3.</p>
+            <span class="wishlist-icon" onclick="addToWishList(4)">🤎</span>
+          </div>
+
+
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-md-3">
+            <div class="shop-item" data-product-id="5">
+              <img src="../images/product-5.png" alt="Product 5">
+              <h3>Product 5</h3>
+              <p>Description of Product 5</p>
+              <span class="wishlist-icon" onclick="addToWishList(5)">🤎</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="shop-item" data-product-id="2">
+              <img src="../images/product-6.png" alt="Product 2">
+              <h3>Product 6</h3>
+              <p>Description of Product 6</p>
+              <span class="wishlist-icon" onclick="addToWishList(2)">🤎</span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="shop-item" data-product-id="7">
+              <img src="../images/product-7.png" alt="Product 3">
+              <h3>Product 7</h3>
+              <p>Description of Product 7</p>
+              <span class="wishlist-icon" onclick="addToWishList(7)">🤎</span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="shop-item" data-product-id="8">
+              <img src="../images/product-8.png" alt="Product 8">
+              <h3>Product 8</h3>
+              <p>Description of Product 8</p>
+              <span class="wishlist-icon" onclick="addToWishList(8)">🤎</span>
+            </div>
+
+
+
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-3">
+              <div class="shop-item" data-product-id="9">
+                <img src="../images/product-9.png" alt="Product 5">
+                <h3>Product 9</h3>
+                <p>Description of Product 9</p>
+                <span class="wishlist-icon" onclick="addToWishList(9)">🤎</span>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="shop-item" data-product-id="10">
+                <img src="../images/product-10.png" alt="Product 10">
+                <h3>Product 6</h3>
+                <p>Description of Product 6</p>
+                <span class="wishlist-icon" onclick="addToWishList(10)">🤎</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="shop-item" data-product-id="11">
+                <img src="../images/product-11.png" alt="Product 11">
+                <h3>Product 7</h3>
+                <p>Description of Product 7</p>
+                <span class="wishlist-icon" onclick="addToWishList(11)">🤎</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="shop-item" data-product-id="12">
+                <img src="../images/product-12.png" alt="Product 12">
+                <h3>Product 8</h3>
+                <p>Description of Product 8</p>
+                <span class="wishlist-icon" onclick="addToWishList(12)">🤎</span>
+              </div>
+
+
+
+
+            </div>
+
+
+            <!-- Add more product cards as needed -->
+
+          </div>
+        </div>
+      </div>
+      <!-- <script>
+        function addToWishList(productId) {
+          // Get the product details
+          const shopItem = document.querySelector(`.shop-item[data-product-id="${productId}"]`);
+          const productName = shopItem.querySelector('h3').innerText;
+
+          // Create a new wish list item
+          const wishListItem = {
+            productId: productId,
+            productName: productName
+          };
+
+          // Get existing wish list from local storage
+          const existingWishList = JSON.parse(localStorage.getItem('wishList')) || [];
+
+          // Check if the product is already in the wish list
+          const isInWishList = existingWishList.some(item => item.productId === productId);
+          if (isInWishList) {
+            alert(`Product "${productName}" is already in the wish list!`);
+            return;
+          }
+
+          // Add the new item to the wish list
+          existingWishList.push(wishListItem);
+
+          // Save the updated wish list to local storage
+          localStorage.setItem('wishList', JSON.stringify(existingWishList));
+
+          // Optionally, you can redirect to the wish list page
+          window.location.href = 'wishlist.html';
+        }
+      </script> -->
+
+
+
+      <!-- -------------------------- End Add New Product ----------------------------------------------->
+
+
+
+
+
+
+
+
+      <!-- <script src="../js/main.js"></script> -->
+      <script src="../js/shop.js"></script>
+      <script src="../js/search.js"></script>
+</body>
+
+</html>

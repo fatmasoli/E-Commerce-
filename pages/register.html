@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Registration</title>
+</head>
+
+<body>
+
+    <!-- nav -->
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+        <div class="container">
+          <a class="navbar-brand" href="index.html">ProjectJs<span>.</span></a>
+    
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarsFurni">
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link text-black" href="register.html">register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black" href="login.html">log in</a>
+                </li>
+                <li>
+                    <a class="nav-link text-black" href="loginAdmin.html"><i class="fa-solid fa-user"></i></a>
+                </li>
+            </ul>
+    
+          
+          </div>
+        </div>
+          
+      </nav>
+
+
+    <!-- Create a Form -->
+    <div class="container mt-5 ">
+        <div class="w-50 m-auto">
+            <h2>Registration Form</h2>
+
+            
+            <div class="form-group mb-3">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter Name" class="form-control" required>
+                <div class="invalid-feedback"></div>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" class="form-control" required>
+                <div class="invalid-feedback"></div>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" required>
+                <div class="invalid-feedback"></div>
+            </div>
+            
+
+
+                <div class="text-center">
+                    <button class="btn btn-success" onclick="saveData()" id="save_btn">Submit</button>
+                </div>
+        
+        </div>
+    </div>
+
+
+    <script src="../js/main.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    var nameInput = document.getElementById("name");
+    var emailInput = document.getElementById("email");
+    var passwordInput = document.getElementById("password");
+
+    nameInput.addEventListener("blur", function () {
+        validateName();
+    });
+
+    emailInput.addEventListener("blur", function () {
+        validateEmail();
+    });
+
+    passwordInput.addEventListener("blur", function () {
+        validatePassword();
+    });
+
+    function validateName() {
+        var name = nameInput.value;
+        var errorMessage = "Name must be at least 5 characters";
+
+        if (name.length < 5) {
+            displayErrorMessage(nameInput, errorMessage);
+        } else {
+            clearErrorMessage(nameInput);
+        }
+    }
+
+    function validateEmail() {
+        var email = emailInput.value;
+        var errorMessage = "Email must contain at least one number";
+
+        if (!/\d/.test(email)) {
+            displayErrorMessage(emailInput, errorMessage);
+        } else {
+            clearErrorMessage(emailInput);
+        }
+    }
+
+    function validatePassword() {
+        var password = passwordInput.value;
+        var errorMessage = "Password must contain at least one capital letter";
+
+        if (!/[A-Z]/.test(password)) {
+            displayErrorMessage(passwordInput, errorMessage);
+        } else {
+            clearErrorMessage(passwordInput);
+        }
+    }
+
+    function saveData() {
+        // Call validation functions before saving data
+        validateName();
+        validateEmail();
+        validatePassword();
+
+        // Check if any validation errors exist
+        if (document.querySelectorAll(".is-invalid").length > 0) {
+            alert("Please correct the validation errors before submitting.");
+        } else {
+            // Proceed with saving data to localStorage
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            var userRecords = JSON.parse(localStorage.getItem("users")) || [];
+
+            if (userRecords.some((v) => v.email === email)) {
+                alert("Duplicated Data");
+            } else {
+                userRecords.push({
+                    name: name,
+                    email: email,
+                    password: password
+                });
+
+                localStorage.setItem("users", JSON.stringify(userRecords));
+                window.location.href = "login.html";
+            }
+        }
+    }
+
+    function displayErrorMessage(input, message) {
+        var errorMessageContainer = input.parentElement.querySelector('.invalid-feedback');
+        input.classList.add("is-invalid");
+        errorMessageContainer.innerHTML = message;
+        errorMessageContainer.style.color = "red";
+    }
+
+    function clearErrorMessage(input) {
+        var errorMessageContainer = input.parentElement.querySelector('.invalid-feedback');
+        input.classList.remove("is-invalid");
+        errorMessageContainer.innerHTML = "";
+    }
+
+    console.log("hello");
+</script>
+
+
+
+
+    console.log("hello");
+</script>
+
+
+
+</body>
+
+</html>

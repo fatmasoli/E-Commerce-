@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>feedback</title>
+</head>
+
+<body>
+    <!-- nav bar -->
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+        <div class="container">
+            <a class="navbar-brand" href="index.html">ProjectJs<span>.</span></a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="Admin.html">Add Product</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="orders.html">Orders</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="feedback.html">feedback</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="#" onclick="logOut()">log out</a>
+
+                    </li>
+                </ul>
+
+
+            </div>
+        </div>
+
+    </nav>
+    <!-- end nav bar -->
+
+
+
+    <!-- start feedBack -->
+    <h1 class="text-center my-5">FeedBack Of Customers</h1>
+
+
+
+    <div class="container mt-5">
+
+        <div class="row justify-content-around" id="feedbackContainer">
+
+
+        </div>
+    </div>
+
+    <!-- End FeedBack -->
+
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+
+    <!-- JS FeedBack -->
+    <script>
+
+        var feedbackContainer = document.getElementById('feedbackContainer');
+
+
+        var userFeedBack = JSON.parse(localStorage.getItem("feedBackUser")) || [];
+
+        // Clear previous content
+        feedbackContainer.innerHTML = '';
+
+        // Display feedback items
+        userFeedBack.forEach(function (feedback) {
+
+            var feedbackItem = document.createElement('div');
+
+            feedbackItem.innerHTML = `
+
+            
+                <div class="col-6 feed" >
+                    
+                    <h3><strong>Customer:</strong> ${feedback.fname}</h3>
+                    <p><strong>FeedBack:</strong> ${feedback.fMessage}</p>
+                </div>
+
+                `;
+            feedbackContainer.appendChild(feedbackItem);
+        });
+
+    </script>
+
+
+</body>
+
+</html>

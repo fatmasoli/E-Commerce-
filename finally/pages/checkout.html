@@ -1,0 +1,406 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap4" />
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/all.min.css">
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="../css/style1.css" rel="stylesheet">
+	<title>Checkout</title>
+	<style>
+		
+.col-50 {
+    -ms-flex: 50%;
+    /* IE10 */
+    flex: 50%;
+}
+
+.col-75 {
+    -ms-flex: 75%;
+    /* IE10 */
+    flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+    padding: 0 16px;
+}
+
+.container {
+    /* background-color: #f2f2f2; */
+    padding: 5px 20px 15px 20px;
+    /* border: 1px solid lightgrey; */
+    border-radius: 3px;
+}
+
+input[type=text] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-container {
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+}
+
+.btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+a {
+    color: #2196F3;
+}
+
+hr {
+    border: 1px solid lightgrey;
+}
+
+span.price {
+    float: right;
+    color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column-reverse;
+    }
+
+    .col-25 {
+        margin-bottom: 20px;
+    }
+}
+	</style>
+</head>
+
+<body>
+
+	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+		<div class="container">
+			<a class="navbar-brand" href="index.html">ProjectJs<span>.</span></a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsFurni">
+				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+					<li class="nav-item">
+						<a class="nav-link text-black" href="home.html">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-black" href="about.html">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-black" href="product.html">product</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-black" href="contactUs.html">contactUs</a>
+					</li>
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li>
+							<div class="wishList"><a class="nav-link" href="wishlist.html"><svg
+										xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										class="bi bi-heart-fill" viewBox="0 0 16 16">
+										<path fill-rule="evenodd"
+											d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+									</svg>
+									
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="shopping">
+								<a class="nav-link" href="cart.html"><img src="../images/cart.svg"></a>
+
+							</div>
+						</li>
+					</ul>
+					<!-- <li class="nav-item">
+				<a class="nav-link text-black" href="wishlist.html"> WishList </a>
+			  </li> -->
+
+
+					<li class="nav-item">
+						<a class="nav-link text-black" href="#" onclick="logOut()">log out</a>
+
+					</li>
+				</ul>
+
+
+			</div>
+		</div>
+
+	</nav>
+	<!-- End Header/Navigation -->
+
+
+	<div class="untree_co-section">
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-md-6">
+
+
+
+					<div class="row mb-5">
+						<div class="col-md-12">
+							<h2 class="h3 mb-3 text-black">Your Order</h2>
+							<div class="status-order p-3 p-lg-5 border bg-white">
+								<div class="cont">
+									<table class="table site-block-order-table mb-5">
+										<thead>
+											<th>Product</th>
+											<th>Total</th>
+										</thead>
+										<tbody class="checkout-tbody">
+
+										</tbody>
+									</table>
+
+
+
+									<div class="border p-3 mb-5">
+										<h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse"
+												href="#collapsepaypal" role="button" aria-expanded="false"
+												aria-controls="collapsepaypal">Paypal</a></h3>
+
+										<div class="collapse" id="collapsepaypal">
+											<div class="col-50">
+												<h3>Payment</h3>
+												<label for="fname">Accepted Cards</label>
+												<div class="icon-container">
+												  <i class="fa fa-cc-visa" style="color:navy;"></i>
+												  <i class="fa fa-cc-amex" style="color:blue;"></i>
+												  <i class="fa fa-cc-mastercard" style="color:red;"></i>
+												  <i class="fa fa-cc-discover" style="color:orange;"></i>
+												</div>
+												<label for="cname">Name on Card</label>
+												<input type="text" id="cname" name="cardname" placeholder="John More Doe">
+												<label for="ccnum">Credit card number</label>
+												<input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+												<label for="expmonth">Exp Month</label>
+												<input type="text" id="expmonth" name="expmonth" placeholder="September">
+												<div class="row">
+												  <div class="col-50">
+													<label for="expyear">Exp Year</label>
+													<input type="text" id="expyear" name="expyear" placeholder="2018">
+												  </div>
+												  <div class="col-50">
+													<label for="cvv">CVV</label>
+													<input type="text" id="cvv" name="cvv" placeholder="352">
+												  </div>
+												</div>
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-black btn-lg py-3 btn-block" id="placeorder">Place
+										Order</button>
+									<a href="" class="status"> Check status</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-6 mb-5 mb-md-0">
+					<h2 class="h3 mb-3 text-black">Order Previous</h2>
+					<div class="p-3 p-lg-5 border bg-white">
+
+
+						<div class="form-group">
+
+							<a href="" class="Show-Order-Previous"> Show Order Previous</a>
+							<a href="" class="Clear-Order-Previous" style="margin-left: 6rem;"> clear content</a>
+
+							<div class="alert alert-info Order-Previous" style="display: none;" role="alert">
+								You haven't ordered yet back to shop and
+								order: <a href="product.html" class="alert-link">Shop From Here</a>.
+							</div>
+							<div class="Previous">
+								<table class="table site-block-order-table mb-5  Order-Previous-Table">
+									<thead>
+										<th>Product</th>
+										<th>Total</th>
+									</thead>
+									<tbody class="Previous-tbody"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- </form> -->
+			</div>
+		</div>
+
+		<!-- Start Footer Section -->
+		<footer class="footer-section">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src="images/sofa.png" alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img
+										src="images/envelope-outline.svg" alt="Image"
+										class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
+						<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl
+							dapibus
+							malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor
+							tristique.
+							Pellentesque habitant</p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Knowledge base</a></li>
+									<li><a href="#">Live chat</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Our team</a></li>
+									<li><a href="#">Leadership</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Nordic Chair</a></li>
+									<li><a href="#">Kruzo Aero</a></li>
+									<li><a href="#">Ergonomic Chair</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;
+								<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash;
+								Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a
+									hreff="https://themewagon.com">ThemeWagon</a>
+								<!-- License information: https://untree.co/license/ -->
+							</p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->
+
+
+
+		<script src="../js/bootstrap.bundle.min.js"></script>
+		<script src="../js/tiny-slider.js"></script>
+
+		<script src="../js/checkout.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <title>Admin</title>
+
+</head>
+
+<body>
+
+  <!-- nav bar -->
+
+  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+    <div class="container">
+      <a class="navbar-brand" href="index.html">ProjectJs<span>.</span></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+        aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsFurni">
+        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link text-black" href="#">Add Product</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link text-black" href="orders.html">Orders</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-black" href="feedback.html">feedback</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link text-black" href="#" onclick="logOut()">log out</a>
+
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+
+  </nav>
+
+
+
+  <!------------------- Crud  Add Product ------------------------------->
+
+
+
+  <div class="w-75 mx-auto p-5 m-5 shadow-lg">
+    <h1>New Product</h1>
+    <label>product Id:</label>
+    <input type="number" onblur="validateid(event)" class="form-control mb-3" id="productId">
+    <div id="pnameAlertId" class="d-none alert alert-danger alert-dismissible fade show" role="alert">
+
+    </div>
+    <label>productName:</label>
+    <input type="text" onblur="validateProduct(event)" class="form-control mb-3" id="productName">
+    <div id="pnameAlert" class="d-none alert alert-danger alert-dismissible fade show" role="alert"></div>
+    <div id="duplicatename" class="d-none alert alert-danger alert-dismissible fade show" role="alert">
+
+    </div>
+
+
+    <!-- <label>productCategory:</label>
+        <input type="text" class="form-control mb-3" id="productCategory"> -->
+
+    <label for="category">productCategory:</label>
+    <select name="category" id="productCategory" class="form-control mb-3">
+      <option value=""></option>
+      <option value="table">Table</option>
+      <option value="chair">Chair</option>
+      <option value="couch">couch</option>
+    </select>
+
+
+    <label>productPrice:</label>
+    <input type="number" class="form-control mb-3" id="productPrice">
+
+    <label>productImage:</label>
+    <input type="file" class="form-control mb-3" id="productImage">
+
+    <label>productDescription</label>
+    <textarea class="form-control mb-3" id="productDesc"></textarea>
+    <label>product Stock:</label>
+    <input type="number" class="form-control mb-3" id="productStock">
+    <button class="btn btn-primary" id="addProduct">Add Product</button>
+    <button class="btn btn-danger" onclick="clearForm()">clear</button>
+  </div>
+
+  <!-- Product Table -->
+<div class="w-75 mx-auto p-5 m-5 shadow-lg">
+  <h1>Product List</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="productTableBody">
+      <!-- Product table rows will be inserted here dynamically -->
+    </tbody>
+  </table>
+</div>
+
+  <!---------------------------- End Crud ------------------------------->
+
+
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/tiny-slider.js"></script>
+
+
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load products from localStorage
+      loadProducts();
+      // Set up event listener for Add Product button
+      document.getElementById('addProduct').addEventListener('click', addProduct);
+    });
+  
+    function addProduct() {
+      // Your existing add product logic
+      // Retrieve form values and validate
+  
+      // Create a new product object
+      const newProduct = {
+        productId: document.getElementById('productId').value,
+        productName: document.getElementById('productName').value,
+        productCategory: document.getElementById('productCategory').value,
+        productPrice: document.getElementById('productPrice').value,
+        productImage: document.getElementById('productImage').value,
+        productDescription: document.getElementById('productDesc').value,
+        productStock: document.getElementById('productStock').value,
+      };
+  
+      // Get existing products from local storage
+      const existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+  
+      // Check if the product already exists (you can use productId as a unique identifier)
+      const existingProductIndex = existingProducts.findIndex(product => product.productId === newProduct.productId);
+  
+      if (existingProductIndex !== -1) {
+        // Update existing product
+        existingProducts[existingProductIndex] = newProduct;
+      } else {
+        // Add the new product to the list
+        existingProducts.push(newProduct);
+      }
+  
+      // Save the updated product list to local storage
+      localStorage.setItem('products', JSON.stringify(existingProducts));
+  
+      // Reload the products
+      loadProducts();
+  
+      // Clear the form inputs
+      clearForm();
+    }
+  
+    function loadProducts() {
+      // Your existing load products logic
+      // Retrieve products from local storage and dynamically populate the product table
+      const existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+      const productTableBody = document.getElementById('productTableBody');
+  
+      // Clear existing table content
+      productTableBody.innerHTML = '';
+  
+      // Loop through each product and display it in the table
+      existingProducts.forEach(product => {
+        const productRow = document.createElement('tr');
+        productRow.innerHTML = `
+          <td>${product.productId}</td>
+          <td>${product.productName}</td>
+          <td>${product.productCategory}</td>
+          <td>${product.productPrice}</td>
+          <td>${product.productImage}</td>
+          <td>${product.productDescription}</td>
+          <td>${product.productStock}</td>
+          <td>
+            <button onclick="updateProduct('${product.productId}')">Update</button>
+            <button onclick="deleteProduct('${product.productId}')">Delete</button>
+          </td>
+        `;
+        productTableBody.appendChild(productRow);
+      });
+    }
+  
+    function updateProduct(productId) {
+      // Implement update product logic here
+      // You can retrieve the product details from local storage and populate the form for editing
+      const existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+      const productToUpdate = existingProducts.find(product => product.productId === productId);
+  
+      if (productToUpdate) {
+        // Populate the form with the product details for editing
+        document.getElementById('productId').value = productToUpdate.productId;
+        document.getElementById('productName').value = productToUpdate.productName;
+        document.getElementById('productCategory').value = productToUpdate.productCategory;
+        document.getElementById('productPrice').value = productToUpdate.productPrice;
+        document.getElementById('productImage').value = productToUpdate.productImage;
+        document.getElementById('productDesc').value = productToUpdate.productDescription;
+        document.getElementById('productStock').value = productToUpdate.productStock;
+      }
+    }
+  
+    function deleteProduct(productId) {
+      // Your existing delete product logic
+      // Remove the product from the list and reload the products
+      const existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+      const updatedProducts = existingProducts.filter(product => product.productId !== productId);
+      localStorage.setItem('products', JSON.stringify(updatedProducts));
+      loadProducts();
+    }
+  
+    function clearForm() {
+      // Your existing clear form logic
+      // Clear the form inputs
+      document.getElementById('productId').value = '';
+      document.getElementById('productName').value = '';
+      document.getElementById('productCategory').value = '';
+      document.getElementById('productPrice').value = '';
+      document.getElementById('productImage').value = '';
+      document.getElementById('productDesc').value = '';
+      document.getElementById('productStock').value = '';
+    }
+  </script>
+</body>
+
+</html>

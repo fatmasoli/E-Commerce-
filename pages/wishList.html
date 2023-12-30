@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <title>wishList</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .custom-navbar {
+      background-color: #343a40;
+    }
+
+    .custom-navbar a {
+      color: white;
+    }
+
+    .wish-list-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      width: 250px;
+      display: inline-block;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+      margin-left: 100px;
+    }
+
+    .wish-list-item:hover {
+      transform: scale(1.05);
+    }
+
+    .wish-list-item img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .wish-list-item button {
+      cursor: pointer;
+      background-color: #90000e;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- nav bar -->
+  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+    <div class="container">
+      <a class="navbar-brand" href="index.html">ProjectJs<span>.</span></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+        aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsFurni">
+        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link text-black" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-black" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-black" href="product.html">product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-black" href="contactUs.html">contactUs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-black" href="wishList.html"> WishList <svg xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+              </svg></a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link text-black" href="#" onclick="logOut()">log out</a>
+
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+
+  </nav>
+  <!-- end nav bar -->
+
+  <div id="wish-list-item" class="container"></div>
+
+  <script>
+    let user = localStorage.getItem("name").split(" ")[0];
+    // Load wish list from local storage on page load
+
+
+
+    window.onload = function () {
+      const wishList = localStorage.getItem(`wish-list-${user}`);
+      if (wishList) {
+        const wishListItems = JSON.parse(wishList);
+        const wishListContainer = document.getElementById('wish-list-item');
+
+        wishListItems.forEach(item => {
+          // Create a new wish list item
+          const wishListItem = document.createElement('div');
+          wishListItem.classList.add('wish-list-item');
+          wishListItem.innerHTML = `
+                      <img src="${item.image}" style="height:15rem;" data-toggle="tooltip" data-placement="top" title="${item.productName}" alt="${item.productName}">
+                      <h3>${item.productName}</h3>
+                     
+                      <button onclick="removeFromWishList(${item.productId})">Remove from Wish List</button>
+                  `;
+
+          // Add the wish list item to the wish list container
+          wishListContainer.appendChild(wishListItem);
+        });
+      }
+    };
+
+    function removeFromWishList(productId) {
+      // Get existing wish list from local storage
+      const existingWishList = JSON.parse(localStorage.getItem((`wish-list-${user}`))) || [];
+      console.log(existingWishList);
+      // Remove the item from the wish list
+      const updatedWishList = existingWishList.filter(item => item.productId != productId);
+console.log(updatedWishList);
+      // Save the updated wish list to local storage
+      localStorage.setItem(`wish-list-${user}`, JSON.stringify(updatedWishList));
+
+      // Reload the page to reflect the changes
+      location.reload();
+    }
+  </script>
+
+</body>
+
+</html>
